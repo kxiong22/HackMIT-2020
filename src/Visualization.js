@@ -17,7 +17,7 @@ export class Visualization extends React.Component {
         }
 
         let carbohydrateData = {
-            labels: ['% daily value', 'remaining'],
+            labels: ['% daily value', '% remaining'],
             datasets: [{
                 data: [nutrients.totalDaily.CHOCDF.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.CHOCDF.quantity.toFixed(2),100)],
                 backgroundColor: [
@@ -28,7 +28,7 @@ export class Visualization extends React.Component {
         }
 
         let fatData = {
-            labels: ['% daily value', 'remaining'],
+            labels: ['% daily value', '% remaining'],
             datasets: [{
                 data: [nutrients.totalDaily.FAT.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.FAT.quantity.toFixed(2),100)],
                 backgroundColor: [
@@ -39,7 +39,7 @@ export class Visualization extends React.Component {
         }
 
         let proteinData = {
-            labels: ['% daily value', 'remaining'],
+            labels: ['% daily value', '% remaining'],
             datasets: [{
                 data: [nutrients.totalDaily.PROCNT.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.PROCNT.quantity.toFixed(2),100)],
                 backgroundColor: [
@@ -50,7 +50,7 @@ export class Visualization extends React.Component {
         }
 
         let sodiumData = {
-            labels: ['% daily value', 'remaining'],
+            labels: ['% daily value', '% remaining'],
             datasets: [{
                 data: [nutrients.totalDaily.NA.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.NA.quantity.toFixed(2),100)],
                 backgroundColor: [
@@ -61,9 +61,9 @@ export class Visualization extends React.Component {
         }
 
         let sugarData = {
-            labels: ['% daily value', 'remaining'],
+            labels: ['% daily value', '% remaining'],
             datasets: [{
-                data: [(nutrients.totalNutrients.SUGAR.quantity.toFixed(2)/30)*100, 100 - Math.min((nutrients.totalNutrients.SUGAR.quantity.toFixed(2)/30)*100,100)],
+                data: [((nutrients.totalNutrients.SUGAR.quantity/30)*100).toFixed(2), 100 - Math.min(((nutrients.totalNutrients.SUGAR.quantity/30)*100).toFixed(2),100)],
                 backgroundColor: [
                     'rgba(245,189,31,1)',
                     'rgba(249, 228, 183, 1)',
@@ -72,7 +72,7 @@ export class Visualization extends React.Component {
         }
 
         let calorieData = {
-            labels: ['% daily value', 'remaining'],
+            labels: ['% daily value', '% remaining'],
             datasets: [{
                 data: [nutrients.calories/20, 100 - Math.min(nutrients.calories/20,100)],
                 backgroundColor: [

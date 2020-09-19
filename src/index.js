@@ -23,8 +23,8 @@ class App extends React.Component {
         return (
             <div>
                 <Navbar className="nav-bar" expand="lg">
-                    <img alt="pic" style={{height: '30px', marginRight: '10px'}} src="https://i.pinimg.com/originals/3d/d8/59/3dd85997b6e689e417c99e3f008c5c03.png"/>
-                    <Navbar.Brand style={{fontSize: '20px'}}>Katherine is Cool</Navbar.Brand>
+                    <img alt="pic" style={{height: '50px', marginRight: '5px'}} src="https://static.thenounproject.com/png/2130454-200.png"/>
+                    <Navbar.Brand style={{fontSize: '20px'}}>Yoohoo Big Summer Blowout</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">

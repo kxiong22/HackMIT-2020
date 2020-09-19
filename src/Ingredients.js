@@ -164,7 +164,7 @@ export class Ingredients extends React.Component {
         }
 
         return (
-            <div>
+            <div className="home-container">
                 { this.props.showHome && 
                 <div>
                     <div style = {{paddingTop: '30px'}}>
@@ -254,6 +254,7 @@ export class Ingredients extends React.Component {
                     </div>
                 }
             </div>
+            
         )
     }
 }
