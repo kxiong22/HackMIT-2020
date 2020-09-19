@@ -6,6 +6,7 @@ import logo from './images/pinkx.png';
 import Saves from './Saves.js';
 import axios from 'axios';
 import Visualization from './Visualization.js';
+import { Doughnut } from 'react-chartjs-2';
 
 const EDAMAM_APP_ID = 'b920c5d8';
 const EDAMAM_API_KEY = '8364899ccd14a7bd16f1302137461490';
@@ -15,7 +16,7 @@ export class Ingredients extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentMeal: "Breakfast",
+            currentMeal: "Add Meal",
             items: [],
             amounts: [],
             currentItem: "",
@@ -161,6 +162,7 @@ export class Ingredients extends React.Component {
         for(let i=0; i<this.state.items.length; i++){
             listItems.push(this.renderItem(i));
         }
+
         return (
             <div>
                 { this.props.showHome && 
@@ -182,21 +184,19 @@ export class Ingredients extends React.Component {
                             </div>
                         </div>
                         <div style={{textAlign: "center"}}>
-                        <DropdownButton variant="info"id="dropdown-basic-button" title="Add Meal">
-                            <Dropdown.Item href="#/action-1">Breakfast</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Lunch</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Dinner</Dropdown.Item>
-                            <Dropdown.Item href="#/action-4">Snack</Dropdown.Item>
+                        <DropdownButton variant="info" title={this.state.currentMeal} onSelect={(e) => {this.setState({currentMeal: e})}}>
+                            <Dropdown.Item eventKey="Breakfast">Breakfast</Dropdown.Item>
+                            <Dropdown.Item eventKey="Lunch">Lunch</Dropdown.Item>
+                            <Dropdown.Item eventKey="Dinner">Dinner</Dropdown.Item>
+                            <Dropdown.Item eventKey="Snack">Snack</Dropdown.Item>
                             <Dropdown.Divider />
-                            {/* <Dropdown.Item href="#/action-4">Other</Dropdown.Item> */}
                             <Form>
                                 <Form.Group controlId="other">
-                                    {/* <Form.Label>Email address</Form.Label> */}
                                     <Form.Control type="meal" placeholder="Other..." />
                                 </Form.Group>
                             </Form>
                         </DropdownButton>
-                            <Button style={{margin: '10px'}} variant="outline-info" type="submit" onClick={() => this.setState({showItemsAdder: true})}>Go!</Button>
+                        <Button style={{margin: '10px'}} variant="outline-info" type="submit" onClick={() => this.setState({showItemsAdder: true})}>Go!</Button>
                         </div>
 
                         { this.state.showItemsAdder && 

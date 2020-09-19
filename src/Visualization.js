@@ -1,19 +1,44 @@
 import React from 'react';
-import {Accordion, Card, Button} from 'react-bootstrap';
+import {Accordion, Card, Button, Container, Row, Col} from 'react-bootstrap';
+import { Doughnut } from 'react-chartjs-2';
 
 export class Visualization extends React.Component {    
     render() {
         const {ingredients, instructions, title, image} = this.props.recipe;
         const {nutrients} = this.props.data;        
 
-        var formattedIngreds = [];
+        let formattedIngreds = [];
         for (let i=0; i<ingredients.length; i++) {
             formattedIngreds.push(<li className="modal-words">{ingredients[i]}</li>);
         }
-        var formattedInstructions = [];
+        let formattedInstructions = [];
         for (let i=0; i<instructions.length; i++) {
             formattedInstructions.push(<li className="modal-words">{instructions[i]}</li>);
         }
+
+        let carbohydrateData = {
+            labels: ['% daily value', 'remaining'],
+            datasets: [{
+                data: [nutrients.totalDaily.CHOCDF.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.CHOCDF.quantity.toFixed(2))],
+                backgroundColor: [
+                    'rgba(150, 111, 214, 1)',
+                    'rgba(249, 228, 183, 1)',
+                ]
+            }]
+        }
+
+        let data = {
+            labels: ['Red', 'Yellow', 'Blue'],
+            datasets: [{
+                data: [10, 20, 30],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                ],
+            }],
+        }
+
         return (
             <div>
                 <div>{this.props.data.title}</div>
@@ -23,6 +48,28 @@ export class Visualization extends React.Component {
                 <div>Protein: {nutrients.totalNutrients.PROCNT.quantity.toFixed(2)} {nutrients.totalNutrients.PROCNT.unit} </div>
                 <div>Sodium: {nutrients.totalNutrients.NA.quantity.toFixed(2)} {nutrients.totalNutrients.NA.unit} </div>
                 <div>Sugars: {nutrients.totalNutrients.SUGAR.quantity.toFixed(2)} {nutrients.totalNutrients.SUGAR.unit} </div>
+
+                <Container>
+                    <Row>
+                        <Col>
+                            <Doughnut data={carbohydrateData}/>
+                        </Col>
+                        <Col>
+                            <Doughnut data={data}/>
+                        </Col>
+                        <Col>
+                            <Doughnut data={data}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Doughnut data={data}/>
+                        </Col>
+                        <Col>
+                            <Doughnut data={data}/>
+                        </Col>
+                    </Row>
+                </Container>
 
                 <Accordion>
                     <Card>
