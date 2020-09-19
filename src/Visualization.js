@@ -27,6 +27,50 @@ export class Visualization extends React.Component {
             }]
         }
 
+        let fatData = {
+            labels: ['% daily value', 'remaining'],
+            datasets: [{
+                data: [nutrients.totalDaily.FAT.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.FAT.quantity.toFixed(2))],
+                backgroundColor: [
+                    'rgba(251,174,210,1)',
+                    'rgba(249, 228, 183, 1)',
+                ]
+            }]
+        }
+
+        let proteinData = {
+            labels: ['% daily value', 'remaining'],
+            datasets: [{
+                data: [nutrients.totalDaily.PROCNT.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.PROCNT.quantity.toFixed(2))],
+                backgroundColor: [
+                    'rgba(144,238,144,1)',
+                    'rgba(249, 228, 183, 1)',
+                ]
+            }]
+        }
+
+        let sodiumData = {
+            labels: ['% daily value', 'remaining'],
+            datasets: [{
+                data: [nutrients.totalDaily.NA.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.NA.quantity.toFixed(2))],
+                backgroundColor: [
+                    'rgba(128,206,225,1)',
+                    'rgba(249, 228, 183, 1)',
+                ]
+            }]
+        }
+
+        let sugarData = {
+            labels: ['% daily value', 'remaining'],
+            datasets: [{
+                data: [nutrients.totalNutrients.SUGAR.quantity.toFixed(2)/30, 100 - Math.min(nutrients.totalNutrients.SUGAR.quantity.toFixed(2))],
+                backgroundColor: [
+                    'rgba(245,189,31,1)',
+                    'rgba(249, 228, 183, 1)',
+                ]
+            }]
+        }
+
         let data = {
             labels: ['Red', 'Yellow', 'Blue'],
             datasets: [{
@@ -55,18 +99,18 @@ export class Visualization extends React.Component {
                             <Doughnut data={carbohydrateData}/>
                         </Col>
                         <Col>
-                            <Doughnut data={data}/>
+                            <Doughnut data={fatData}/>
                         </Col>
                         <Col>
-                            <Doughnut data={data}/>
+                            <Doughnut data={proteinData}/>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <Doughnut data={data}/>
+                            <Doughnut data={sodiumData}/>
                         </Col>
                         <Col>
-                            <Doughnut data={data}/>
+                            <Doughnut data={sugarData}/>
                         </Col>
                     </Row>
                 </Container>
