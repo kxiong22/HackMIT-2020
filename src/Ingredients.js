@@ -169,21 +169,6 @@ export class Ingredients extends React.Component {
                 <div>
                     <div style = {{paddingTop: '30px'}}>
                         <h3 style={{textAlign: 'center', padding: '10px'}}> September 20, 2020 </h3>
-                        <div class = "row no-gutters">
-                            <div class = "col-2">
-                                <img style={{height: '20px', width: '20px'}} src = "https://img.webmd.com/dtmcms/live//webmd/consumer_assets/site_images/responsive/Mushroom.svg"/>
-                            </div>
-                            <div class = "col-2">
-                                <img style={{height: '20px', width: '20px'}} src = "https://img.webmd.com/dtmcms/live//webmd/consumer_assets/site_images/responsive/Orange.svgG"/>
-                            </div>
-                            <div class = "col-2">
-                                <img style={{height: '20px', width: '20px'}} src = "https://img.webmd.com/dtmcms/live//webmd/consumer_assets/site_images/responsive/Hamburger.svg"/>
-                            </div>
-                            <div class = "col-2">
-                                <img style={{height: '20px', width: '20px'}} src = "https://img.webmd.com/dtmcms/live//webmd/consumer_assets/site_images/responsive/Cake.svg"/>
-                            </div>
-                        </div>
-
                         <div style={{marginBottom: "20px"}}>
                             <Row className="justify-content-md-center">
                                 <DropdownButton variant="info" title={this.state.currentMeal} onSelect={(e) => {this.setState({currentMeal: e})}}>

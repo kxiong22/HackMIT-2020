@@ -19,7 +19,7 @@ export class Visualization extends React.Component {
         let carbohydrateData = {
             labels: ['% daily value', 'remaining'],
             datasets: [{
-                data: [nutrients.totalDaily.CHOCDF.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.CHOCDF.quantity.toFixed(2))],
+                data: [nutrients.totalDaily.CHOCDF.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.CHOCDF.quantity.toFixed(2),100)],
                 backgroundColor: [
                     'rgba(150, 111, 214, 1)',
                     'rgba(249, 228, 183, 1)',
@@ -30,7 +30,7 @@ export class Visualization extends React.Component {
         let fatData = {
             labels: ['% daily value', 'remaining'],
             datasets: [{
-                data: [nutrients.totalDaily.FAT.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.FAT.quantity.toFixed(2))],
+                data: [nutrients.totalDaily.FAT.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.FAT.quantity.toFixed(2),100)],
                 backgroundColor: [
                     'rgba(251,174,210,1)',
                     'rgba(249, 228, 183, 1)',
@@ -41,7 +41,7 @@ export class Visualization extends React.Component {
         let proteinData = {
             labels: ['% daily value', 'remaining'],
             datasets: [{
-                data: [nutrients.totalDaily.PROCNT.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.PROCNT.quantity.toFixed(2))],
+                data: [nutrients.totalDaily.PROCNT.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.PROCNT.quantity.toFixed(2),100)],
                 backgroundColor: [
                     'rgba(144,238,144,1)',
                     'rgba(249, 228, 183, 1)',
@@ -52,7 +52,7 @@ export class Visualization extends React.Component {
         let sodiumData = {
             labels: ['% daily value', 'remaining'],
             datasets: [{
-                data: [nutrients.totalDaily.NA.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.NA.quantity.toFixed(2))],
+                data: [nutrients.totalDaily.NA.quantity.toFixed(2), 100 - Math.min(nutrients.totalDaily.NA.quantity.toFixed(2),100)],
                 backgroundColor: [
                     'rgba(128,206,225,1)',
                     'rgba(249, 228, 183, 1)',
@@ -63,9 +63,20 @@ export class Visualization extends React.Component {
         let sugarData = {
             labels: ['% daily value', 'remaining'],
             datasets: [{
-                data: [nutrients.totalNutrients.SUGAR.quantity.toFixed(2)/30, 100 - Math.min(nutrients.totalNutrients.SUGAR.quantity.toFixed(2))],
+                data: [(nutrients.totalNutrients.SUGAR.quantity.toFixed(2)/30)*100, 100 - Math.min((nutrients.totalNutrients.SUGAR.quantity.toFixed(2)/30)*100,100)],
                 backgroundColor: [
                     'rgba(245,189,31,1)',
+                    'rgba(249, 228, 183, 1)',
+                ]
+            }]
+        }
+
+        let calorieData = {
+            labels: ['% daily value', 'remaining'],
+            datasets: [{
+                data: [nutrients.calories/20, 100 - Math.min(nutrients.calories/20,100)],
+                backgroundColor: [
+                    'rgba(234,60,83,1)',
                     'rgba(249, 228, 183, 1)',
                 ]
             }]
@@ -90,6 +101,10 @@ export class Visualization extends React.Component {
                 <Container>
                     <Row>
                         <Col style={{textAlign: 'center'}}>
+                            <div style={{textAlign: 'center'}}>Calories: {nutrients.calories}</div>
+                            <Doughnut data={calorieData}  options={{legend: {display: false}}}/>
+                        </Col>
+                        <Col style={{textAlign: 'center'}}>
                             <div>Carbohydrates: {nutrients.totalNutrients.CHOCDF.quantity.toFixed(2)} {nutrients.totalNutrients.CHOCDF.unit}</div>
                             <Doughnut data={carbohydrateData} options={{legend: {display: false}}}/>
                         </Col>
@@ -97,12 +112,13 @@ export class Visualization extends React.Component {
                             <div>Fats: {nutrients.totalNutrients.FAT.quantity.toFixed(2)} {nutrients.totalNutrients.FAT.unit}</div>
                             <Doughnut data={fatData}  options={{legend: {display: false}}}/>
                         </Col>
+                        
+                    </Row>
+                    <Row>
                         <Col style={{textAlign: 'center'}}>
                             <div>Protein: {nutrients.totalNutrients.PROCNT.quantity.toFixed(2)} {nutrients.totalNutrients.PROCNT.unit}</div>
                             <Doughnut data={proteinData} options={{legend: {display: false}}}/>
                         </Col>
-                    </Row>
-                    <Row>
                         <Col style={{textAlign: 'center'}}>
                             <div>Sodium: {nutrients.totalNutrients.NA.quantity.toFixed(2)} {nutrients.totalNutrients.NA.unit}</div>
                             <Doughnut data={sodiumData}  options={{legend: {display: false}}}/>
@@ -110,10 +126,6 @@ export class Visualization extends React.Component {
                         <Col style={{textAlign: 'center'}}>
                             <div>Sugars: {nutrients.totalNutrients.SUGAR.quantity.toFixed(2)} {nutrients.totalNutrients.SUGAR.unit}</div>
                             <Doughnut data={sugarData}  options={{legend: {display: false}}}/>
-                        </Col>
-                        <Col style={{textAlign: 'center'}}>
-                            <div style={{textAlign: 'center', marginTop: '20px'}}>Calories: {nutrients.calories}</div>
-                            
                         </Col>
                     </Row>
                 </Container>
