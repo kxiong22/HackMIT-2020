@@ -82,7 +82,6 @@ export class Ingredients extends React.Component {
             const res = await axios.post(BASE_URL, { title: currentMeal, ingr: ingr});
             await this.handleRecipeSearch();
             this.setState({
-                // saves: saves.concat({title: currentMeal, nutrients: res.data}),
                 saves: saves.concat({
                     title: currentMeal,
                     visual: <Visualization 
@@ -92,11 +91,11 @@ export class Ingredients extends React.Component {
                 }),
                 items: [],
                 amounts: [],
-                showNutrition: true,
             });
         } catch (e) {
             console.error(e);
         }
+        this.setState({showNutrition: true});
     }
 
     handleRecipeSearch = async () => {
@@ -118,8 +117,8 @@ export class Ingredients extends React.Component {
                 id: recipeID,
                 image: vals.image,
             }}))
-            this.getIngredients(recipeID);
-            this.getInstructions(recipeID);
+            await this.getIngredients(recipeID);
+            await this.getInstructions(recipeID);
         } catch (e) {
             console.error(e);
         }                

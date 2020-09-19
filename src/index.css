@@ -65,3 +65,16 @@ hr {
     margin: auto;
     padding-bottom: 15px;
 }
+
+/*************** recipe *************/
+.modal-title {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.modal-words {
+    font-weight: 300;
+}
