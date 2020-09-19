@@ -35,12 +35,12 @@ export class Ingredients extends React.Component {
                 servings: "",
             },
             totals: {
-                calories: 10,
-                carbohydrates: 10,
-                fats: 10,
-                protein: 10,
-                sodium: 10,
-                sugars: 10
+                calories: 0,
+                carbohydrates: 0,
+                fats: 0,
+                protein: 0,
+                sodium: 0,
+                sugars: 0
             }
         }
     }
@@ -92,12 +92,12 @@ export class Ingredients extends React.Component {
             const {calories, carbohydrates, fats, proteins, sodium, sugars} = this.state.totals;
             this.setState(prevState => ({totals: {
                 ...prevState.totals,
-                calories: calories + res.data.calories,
-                carbohydrates: carbohydrates + res.data.totalNutrients.CHOCDF.quantity.toFixed(2),
-                fats: fats + res.data.totalNutrients.FAT.quantity.toFixed(2),
-                proteins: proteins + res.data.totalNutrients.PROCNT.quantity.toFixed(2),
-                sodium: sodium + res.data.totalNutrients.NA.quantity.toFixed(2),
-                sugars: sugars + res.data.totalNutrients.SUGAR.quantity.toFixed(2)
+                calories: calories + res.data.calories/20,
+                carbohydrates: carbohydrates + res.data.totalDaily.CHOCDF.quantity.toFixed(2),
+                fats: fats + res.data.totalDaily.FAT.quantity.toFixed(2),
+                proteins: proteins + res.data.totalDaily.PROCNT.quantity.toFixed(2),
+                sodium: sodium + res.data.totalDaily.NA.quantity.toFixed(2),
+                sugars: sugars + (res.data.totalNutrients.SUGAR.quantity/30)*100
             }}));
 
             await this.handleRecipeSearch();
@@ -183,9 +183,9 @@ export class Ingredients extends React.Component {
         }
 
         return (
-            <div className="home-container">
+            <div>
                 { this.props.showHome && 
-                <div>
+                <div className="home-container">
                     <div style = {{paddingTop: '30px'}}>
                         <h3 style={{textAlign: 'center', padding: '10px'}}> September 20, 2020 </h3>
                         <div style={{marginBottom: "20px"}}>

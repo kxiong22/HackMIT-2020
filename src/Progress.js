@@ -10,12 +10,12 @@ export class Progress extends React.Component {
             datasets: [{
                 data: [calories, carbohydrates, fats, protein, sodium, sugars],
                 backgroundColor: [
-                    'rgba(234,60,83,1)',
-                    'rgba(150, 111, 214, 1)',
-                    'rgba(251,174,210,1)',
-                    'rgba(144,238,144,1)',
-                    'rgba(128,206,225,1)',
-                    'rgba(245,189,31,1)',
+                    'rgba(234,60,83,0.5)',
+                    'rgba(150, 111, 214, 0.5)',
+                    'rgba(251,174,210,0.5)',
+                    'rgba(144,238,144,0.5)',
+                    'rgba(128,206,225,0.5)',
+                    'rgba(245,189,31,0.5)',
                 ]
             }]
         }
