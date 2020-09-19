@@ -1,0 +1,128 @@
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Form, Button, Modal, Col} from 'react-bootstrap';
+import './index.css';
+import logo from './images/pinkx.png';
+
+
+export class Ingredients extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            items: [],
+            amounts: [],
+            currentItem: "",
+            currentAmount: "",
+            showItemsAdder: false, 
+            showNutrition: false,
+        }
+    }
+
+    handleAddItem = (event) => {
+        event.preventDefault();
+        this.setState({
+            items: this.state.items.concat(this.state.currentItem),
+            amounts: this.state.amounts.concat(this.state.currentAmount)
+        });
+        this.refs.form.reset();
+    }
+
+    handleDeleteItem = (i) => {
+        var itemsCopy = [...this.state.items];
+        itemsCopy.splice(i, 1);
+        this.setState({items: itemsCopy});
+    }
+
+    renderItem = (i) => {
+        return (
+            <div style = {{height: '60px'}} key={this.state.items[i]}>
+                <span>{this.state.items[i]}</span>
+                <span style = {{float: 'right'}}>
+                    {this.state.amounts[i]}
+                    <Button onClick={() => this.handleDeleteItem(i)} variant="link">
+                        <img alt="x" style={{width: '20px', height: '20px'}} src={logo}/>
+                    </Button>
+                </span>
+                <hr/>
+            </div>
+        )
+    }
+
+    render() {
+        const listItems = [];
+        for(let i=0; i<this.state.items.length; i++){
+            listItems.push(this.renderItem(i));
+        }
+        return (
+            <div>
+                { this.props.showHome && 
+                <div>
+                    <div style = {{paddingTop: '30px'}}>
+                        <h3 style={{textAlign: 'center', margin: '10px'}}> September 20, 2020 </h3>
+                        <div style={{textAlign: 'center', marginBottom: '10px'}}>                                            
+                            <Button variant="outline-info" type="submit" onClick={() => this.setState({showItemsAdder: true})}>New Meal</Button>
+                        </div>
+
+                        { this.state.showItemsAdder && 
+                        <div className="items-container">
+                            <div style={{padding: '10px'}}>{listItems}</div>
+                            <div>
+                                <Form ref="form" onSubmit={this.handleAddItem}>
+                                    <Form.Row>
+                                        <Col md={5}>
+                                            <Form.Control 
+                                                ref="newitem"
+                                                type="text" 
+                                                placeholder="Item..."
+                                                onChange={() => {this.setState({currentItem: this.refs.newitem.value});}}
+                                            />
+                                        </Col>
+                                        <Col md={4}>
+                                            <Form.Control 
+                                                ref="newamount"
+                                                type="text" 
+                                                placeholder="Amount..."
+                                                onChange={() => {this.setState({currentAmount: this.refs.newamount.value});}}
+                                            />
+                                        </Col>
+                                        <Col md={3}>
+                                            <Button variant="outline-info" type="submit">Add Item!</Button>
+                                        </Col>
+                                    </Form.Row>
+                                </Form>
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+                    <div className="analyze-nutrients-button-container">
+                        <Button className="analyze-nutrients-button" onClick={() => this.setState({showNutrition: true})} variant="light">Analyze My Nutrition!</Button>
+                    </div>
+
+                    <div>
+                        <Modal 
+                            size="lg" 
+                            aria-labelledby="contained-modal-title-vcenter" 
+                            centered 
+                            show={this.state.showNutrition} 
+                            onHide={() => this.setState({showNutrition: false, showItemsAdder: false})}>
+                            Nutrition Visualization
+                        </Modal>
+                    </div>
+                </div>
+                }
+
+                {
+                    this.props.showProgress &&
+                    <div>
+                        Daily Progress
+                    </div>
+                }
+            </div>
+        )
+    }
+}
+
+export default Ingredients
+
+

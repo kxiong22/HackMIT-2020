@@ -1,13 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap');
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 400;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+hr {
+    border-width: 3px;
 }
+
+.hr-line {
+    width: 600px;
+    border: 1px solid gray;
+}
+
+/************** nav bar **************/
+
+.nav-bar {
+    box-shadow: 0 1px 6px 0 hsla(0, 0%, 0%, 0.2);
+    padding-left: 50px;
+}
+
+.nav-container {
+    text-align: center;
+    font-size: 40px;
+    margin-top: 40px;
+}
+
+.title-container{
+    padding-bottom: 50px;
+    padding-top: 90px;
+    text-align: center;
+    font-size: 50px;
+}
+
+/*************** shelves **************/
+
+.form-control {
+    border: 0;
+}
+
+.analyze-nutrients-button-container{
+    text-align: center;
+    padding-top: 45px;
+    padding-bottom: 30px;
+}
+
+.analyze-nutrients-button {
+    font-size: 25px;
+    width: 80%;
+    box-shadow: 0 3px 6px 0 hsla(0, 0%, 0%, 0.2);
+}
+
+.items-container {
+    height: 500px;
+    width: 500px;
+    border: 10px solid rgb(48, 194, 194);
+    box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2);
+    margin: auto;
+}
+
