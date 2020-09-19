@@ -6,7 +6,7 @@ import logo from './images/pinkx.png';
 import Saves from './Saves.js';
 import axios from 'axios';
 import Visualization from './Visualization.js';
-import { Doughnut } from 'react-chartjs-2';
+import Progress from './Progress.js';
 
 const EDAMAM_APP_ID = 'b920c5d8';
 const EDAMAM_API_KEY = '8364899ccd14a7bd16f1302137461490';
@@ -34,6 +34,14 @@ export class Ingredients extends React.Component {
                 time: "",
                 servings: "",
             },
+            totals: {
+                calories: 10,
+                carbohydrates: 10,
+                fats: 10,
+                protein: 10,
+                sodium: 10,
+                sugars: 10
+            }
         }
     }
 
@@ -81,6 +89,17 @@ export class Ingredients extends React.Component {
 
         try {
             const res = await axios.post(BASE_URL, { title: currentMeal, ingr: ingr});
+            const {calories, carbohydrates, fats, proteins, sodium, sugars} = this.state.totals;
+            this.setState(prevState => ({totals: {
+                ...prevState.totals,
+                calories: calories + res.data.calories,
+                carbohydrates: carbohydrates + res.data.totalNutrients.CHOCDF.quantity.toFixed(2),
+                fats: fats + res.data.totalNutrients.FAT.quantity.toFixed(2),
+                proteins: proteins + res.data.totalNutrients.PROCNT.quantity.toFixed(2),
+                sodium: sodium + res.data.totalNutrients.NA.quantity.toFixed(2),
+                sugars: sugars + res.data.totalNutrients.SUGAR.quantity.toFixed(2)
+            }}));
+
             await this.handleRecipeSearch();
             this.setState({
                 saves: saves.concat({
@@ -250,7 +269,7 @@ export class Ingredients extends React.Component {
                 {
                     this.props.showProgress &&
                     <div>
-                        Daily Progress
+                        <Progress totals={this.state.totals} />
                     </div>
                 }
             </div>

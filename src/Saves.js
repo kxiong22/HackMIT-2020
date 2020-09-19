@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Row, Col, Button, Modal} from 'react-bootstrap';
+import {Container, Row, Button, Modal} from 'react-bootstrap';
 
 export class Saves extends React.Component {
     constructor(props) {
