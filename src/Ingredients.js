@@ -40,8 +40,10 @@ export class Ingredients extends React.Component {
         return (
             <div style = {{height: '60px'}} key={this.state.items[i]}>
                 <span>{this.state.items[i]}</span>
-                <span style = {{float: 'right'}}>
+                <span style = {{marginLeft: '180px'}}>
                     {this.state.amounts[i]}
+                 </span>
+                 <span style = {{float: 'right'}}>
                     <Button onClick={() => this.handleDeleteItem(i)} variant="link">
                         <img alt="x" style={{width: '20px', height: '20px'}} src={logo}/>
                     </Button>
@@ -70,7 +72,7 @@ export class Ingredients extends React.Component {
                             <label>
                                 New Meal: <input type="text" value={this.state.currentMeal} onChange={(event) => this.setState({currentMeal: event.target.value})} />
                             </label>
-                            <Button variant="outline-info" type="submit" onClick={() => this.setState({showItemsAdder: true})}>Go!</Button>
+                            <Button style={{margin: '10px'}} variant="outline-info" type="submit" onClick={() => this.setState({showItemsAdder: true})}>Go!</Button>
                         </div>
 
                         { this.state.showItemsAdder && 
@@ -84,7 +86,7 @@ export class Ingredients extends React.Component {
                                                 <Form.Control 
                                                     ref="newitem"
                                                     type="text" 
-                                                    placeholder="Item..."
+                                                    placeholder="Food Item..."
                                                     onChange={() => {this.setState({currentItem: this.refs.newitem.value});}}
                                                 />
                                             </Col>
@@ -92,7 +94,7 @@ export class Ingredients extends React.Component {
                                                 <Form.Control 
                                                     ref="newamount"
                                                     type="text" 
-                                                    placeholder="Amount..."
+                                                    placeholder="Quantity..."
                                                     onChange={() => {this.setState({currentAmount: this.refs.newamount.value});}}
                                                 />
                                             </Col>
