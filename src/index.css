@@ -6,6 +6,7 @@ body {
 
 hr {
     border-width: 3px;
+    margin-top: 1px;
 }
 
 .hr-line {
@@ -59,3 +60,8 @@ hr {
     margin: auto;
 }
 
+/************** meal ***************/
+.meal-card {
+    margin: auto;
+    padding-bottom: 15px;
+}
