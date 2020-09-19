@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Navbar, Nav, Form, Button, Modal, Col, Row} from 'react-bootstrap';
+import {Navbar, Nav} from 'react-bootstrap';
 import './index.css';
 import Ingredients from './Ingredients.js';
 class App extends React.Component {
