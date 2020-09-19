@@ -59,3 +59,8 @@ hr {
     margin: auto;
 }
 
+/************** meal ***************/
+.meal-card {
+    margin: auto;
+    padding-bottom: 15px;
+}

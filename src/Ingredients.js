@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, Button, Modal, Col} from 'react-bootstrap';
 import './index.css';
 import logo from './images/pinkx.png';
-
+import Saves from './Saves.js';
 
 export class Ingredients extends React.Component {
     constructor(props) {
@@ -126,8 +126,9 @@ export class Ingredients extends React.Component {
 
                 {
                     this.state.showSaves && 
-                    <div>
-                        {this.state.saves}
+                    <div style={{textAlign: 'center', marginTop: '20px'}}>
+                        <h6>Today's Meals</h6>
+                        <Saves saves={this.state.saves}/>
                     </div>
                 }
 
