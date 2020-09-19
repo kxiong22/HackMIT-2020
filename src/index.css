@@ -41,13 +41,13 @@ hr {
 
 .analyze-nutrients-button-container{
     text-align: center;
-    padding-top: 45px;
+    padding-top: 30px;
     padding-bottom: 30px;
 }
 
 .analyze-nutrients-button {
     font-size: 25px;
-    width: 80%;
+    width: 40%;
     box-shadow: 0 3px 6px 0 hsla(0, 0%, 0%, 0.2);
 }
 
