@@ -16,7 +16,7 @@ export class Saves extends React.Component {
     }
 
     renderRecipeCard = (i) => {
-        const name = this.props.saves[i];
+        const name = this.props.saves[i].title;
         return (
             <Row>
                 <div className="meal-card">
@@ -27,7 +27,7 @@ export class Saves extends React.Component {
                                 aria-labelledby="contained-modal-title-vcenter" 
                                 centered 
                                 show={this.state.modalShow[i]} onHide={() => this.setModalShow(i, false)}>
-                        {name}
+                        {this.props.saves[i].visual}
                     </Modal>
                 </div>
             </Row>
@@ -35,7 +35,7 @@ export class Saves extends React.Component {
     }
 
     render() {
-        const allSaves = []
+        const allSaves = [];
         for (let i = 0; i < this.props.saves.length; i++) {
             allSaves.push(this.renderRecipeCard(i));
         }

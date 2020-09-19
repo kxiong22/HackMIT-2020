@@ -4,12 +4,18 @@ import {Form, Button, Modal, Col, Row} from 'react-bootstrap';
 import './index.css';
 import logo from './images/pinkx.png';
 import Saves from './Saves.js';
+import axios from 'axios';
+import Visualization from './Visualization.js';
+
+const EDAMAM_APP_ID = 'b920c5d8';
+const EDAMAM_API_KEY = '8364899ccd14a7bd16f1302137461490';
+const SPOON_API_KEY = 'b017b902012d497795bcd109af7486ea';
 
 export class Ingredients extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentMeal: "Meal",
+            currentMeal: "Breakfast",
             items: [],
             amounts: [],
             currentItem: "",
@@ -18,6 +24,15 @@ export class Ingredients extends React.Component {
             showNutrition: false,
             showSaves: false,
             saves: [],
+            recipe: {
+                id: "",
+                title: "",
+                ingredients: [],
+                image: "",
+                instructions: [],
+                time: "",
+                servings: "",
+            },
         }
     }
 
@@ -54,8 +69,92 @@ export class Ingredients extends React.Component {
         )
     }
 
-    handleShowNutrition = () => {
-        this.setState({items: [], amounts: [], showNutrition: true, saves: this.state.saves.concat(this.state.currentMeal)});
+    handleShowNutrition = async () => {
+        let BASE_URL = `https://api.edamam.com/api/nutrition-details?app_id=${EDAMAM_APP_ID}&app_key=${EDAMAM_API_KEY}`;
+
+        const { items, amounts, currentMeal, saves } = this.state;
+        let ingr = [];
+        for (let i = 0; i < items.length; i++) {
+            ingr.push(`${amounts[i]} ${items[i]}`);
+        }
+
+        try {
+            const res = await axios.post(BASE_URL, { title: currentMeal, ingr: ingr});
+            await this.handleRecipeSearch();
+            this.setState({
+                // saves: saves.concat({title: currentMeal, nutrients: res.data}),
+                saves: saves.concat({
+                    title: currentMeal,
+                    visual: <Visualization 
+                                data = {{title: currentMeal, nutrients: res.data}}
+                                recipe = {this.state.recipe}            
+                            />
+                }),
+                items: [],
+                amounts: [],
+                showNutrition: true,
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    handleRecipeSearch = async () => {
+        var ingreds = '';
+        for (let i=0; i<this.state.items.length; i++){
+            ingreds = ingreds + ',+' + this.state.items[i];
+        }
+        ingreds = ingreds.substring(2);
+
+        const BASE_URL = 'https://api.spoonacular.com/recipes/findByIngredients?apiKey=' + SPOON_API_KEY + 
+                                '&number=1&ingredients=' + ingreds;
+        try {
+            const res = await axios.get(BASE_URL);
+            const vals = res.data[0];
+            var recipeID = vals.id;
+            this.setState(prevState => ({recipe:{
+                ...prevState.recipe,
+                title: vals.title,
+                id: recipeID,
+                image: vals.image,
+            }}))
+            this.getIngredients(recipeID);
+            this.getInstructions(recipeID);
+        } catch (e) {
+            console.error(e);
+        }                
+    }
+
+    getIngredients = async (id) => {
+        const BASE_URL = 'https://api.spoonacular.com/recipes/' + id + '/information?includeNutrition=false&apiKey=' + SPOON_API_KEY;
+        try {
+            const res = await axios.get(BASE_URL);
+            const vals = res.data.extendedIngredients;
+            const amts = vals.map(x => x.original);
+            this.setState(prevState => ({recipe: {
+                ...prevState.recipe,
+                ingredients: amts,
+                time: res.data.readyInMinutes,
+                servings: res.data.servings,
+            }}))
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    getInstructions = async (id) => {
+        const BASE_URL = 'https://api.spoonacular.com/recipes/' + id + '/analyzedInstructions?apiKey=' + SPOON_API_KEY;
+        try {
+            const res = await axios.get(BASE_URL);
+            const vals = res.data[0].steps;
+            const steps = vals.map(x => x.step);
+            this.setState(prevState => ({recipe: {
+                ...prevState.recipe,
+                instructions: steps,
+            }}))
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     render() {
@@ -71,7 +170,13 @@ export class Ingredients extends React.Component {
                         <h3 style={{textAlign: 'center', padding: '10px'}}> September 20, 2020 </h3>
                         <div style={{textAlign: "center"}}>
                             <label>
-                                New Meal: <input type="text" value={this.state.currentMeal} onChange={(event) => this.setState({currentMeal: event.target.value})} />
+                                New Meal: 
+                                <select onChange={(event) => this.setState({currentMeal: event.target.value})}>
+                                    <option value = "Breakfast">Breakfast</option>
+                                    <option value = "Lunch">Lunch</option>
+                                    <option value = "Dinner">Dinner</option>
+                                    <option value = "Snack">Snack</option>
+                                </select>
                             </label>
                             <Button style={{margin: '10px'}} variant="outline-info" type="submit" onClick={() => this.setState({showItemsAdder: true})}>Go!</Button>
                         </div>
@@ -100,7 +205,7 @@ export class Ingredients extends React.Component {
                                                 />
                                             </Col>
                                             <Col md={3}>
-                                                <Button variant="outline-info" type="submit">Add Item!</Button>
+                                                <Button variant="outline-info" type="submit">Add Item</Button>
                                             </Col>
                                         </Form.Row>
                                     </Form>
@@ -113,7 +218,7 @@ export class Ingredients extends React.Component {
                         </div>
                         }
                     </div>
-
+                    {this.state.showNutrition &&
                     <div>
                         <Modal 
                             size="lg" 
@@ -122,8 +227,10 @@ export class Ingredients extends React.Component {
                             show={this.state.showNutrition} 
                             onHide={() => this.setState({showNutrition: false, showItemsAdder: false, showSaves: true})}>
                             Nutrition Visualization
+                            {this.state.saves[this.state.saves.length - 1].visual}
                         </Modal>
                     </div>
+                    }
                 </div>
                 }
 
