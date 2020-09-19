@@ -140,7 +140,7 @@ export class Ingredients extends React.Component {
             console.error(e);
         }
     }
-
+    
     getInstructions = async (id) => {
         const BASE_URL = 'https://api.spoonacular.com/recipes/' + id + '/analyzedInstructions?apiKey=' + SPOON_API_KEY;
         try {
