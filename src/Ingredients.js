@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Form, Button, Modal, Col, Row} from 'react-bootstrap';
+import {Form, Button, Modal, Col, Row, Dropdown,DropdownButton} from 'react-bootstrap';
 import './index.css';
 import logo from './images/pinkx.png';
 import Saves from './Saves.js';
@@ -168,15 +168,20 @@ export class Ingredients extends React.Component {
                     <div style = {{paddingTop: '30px'}}>
                         <h3 style={{textAlign: 'center', padding: '10px'}}> September 20, 2020 </h3>
                         <div style={{textAlign: "center"}}>
-                            <label>
-                                New Meal: 
-                                <select onChange={(event) => this.setState({currentMeal: event.target.value})}>
-                                    <option value = "Breakfast">Breakfast</option>
-                                    <option value = "Lunch">Lunch</option>
-                                    <option value = "Dinner">Dinner</option>
-                                    <option value = "Snack">Snack</option>
-                                </select>
-                            </label>
+                        <DropdownButton variant="info"id="dropdown-basic-button" title="Add Meal">
+                            <Dropdown.Item href="#/action-1">Breakfast</Dropdown.Item>
+                            <Dropdown.Item href="#/action-2">Lunch</Dropdown.Item>
+                            <Dropdown.Item href="#/action-3">Dinner</Dropdown.Item>
+                            <Dropdown.Item href="#/action-4">Snack</Dropdown.Item>
+                            <Dropdown.Divider />
+                            {/* <Dropdown.Item href="#/action-4">Other</Dropdown.Item> */}
+                            <Form>
+                                <Form.Group controlId="other">
+                                    {/* <Form.Label>Email address</Form.Label> */}
+                                    <Form.Control type="meal" placeholder="Other..." />
+                                </Form.Group>
+                            </Form>
+                        </DropdownButton>
                             <Button style={{margin: '10px'}} variant="outline-info" type="submit" onClick={() => this.setState({showItemsAdder: true})}>Go!</Button>
                         </div>
 
