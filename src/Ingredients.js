@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Form, Button, Modal, Col} from 'react-bootstrap';
+import {Form, Button, Modal, Col, Row} from 'react-bootstrap';
 import './index.css';
 import logo from './images/pinkx.png';
 import Saves from './Saves.js';
@@ -38,23 +38,24 @@ export class Ingredients extends React.Component {
 
     renderItem = (i) => {
         return (
-            <div style = {{height: '60px'}} key={this.state.items[i]}>
-                <span>{this.state.items[i]}</span>
-                <span style = {{marginLeft: '180px'}}>
-                    {this.state.amounts[i]}
-                 </span>
-                 <span style = {{float: 'right'}}>
-                    <Button onClick={() => this.handleDeleteItem(i)} variant="link">
-                        <img alt="x" style={{width: '20px', height: '20px'}} src={logo}/>
-                    </Button>
-                </span>
+            <div>
+                <Row noGutters={true}>
+                    <Col md={5}>{this.state.items[i]}</Col>
+                    <Col md={4}>{this.state.amounts[i]}</Col>
+                    <Col md={3}>
+                        <Button onClick={() => this.handleDeleteItem(i)} variant="link" style={{float: "right"}}>
+                            <img alt="x" style={{width: '20px', height: '20px'}} src={logo}/>
+                        </Button>
+                    </Col>
+                </Row>
                 <hr/>
             </div>
+            
         )
     }
 
     handleShowNutrition = () => {
-        this.setState({showNutrition: true, saves: this.state.saves.concat(this.state.currentMeal)});
+        this.setState({items: [], amounts: [], showNutrition: true, saves: this.state.saves.concat(this.state.currentMeal)});
     }
 
     render() {
@@ -67,7 +68,7 @@ export class Ingredients extends React.Component {
                 { this.props.showHome && 
                 <div>
                     <div style = {{paddingTop: '30px'}}>
-                        <h3 style={{textAlign: 'center', margin: '10px'}}> September 20, 2020 </h3>
+                        <h3 style={{textAlign: 'center', padding: '10px'}}> September 20, 2020 </h3>
                         <div style={{textAlign: "center"}}>
                             <label>
                                 New Meal: <input type="text" value={this.state.currentMeal} onChange={(event) => this.setState({currentMeal: event.target.value})} />
