@@ -89,15 +89,15 @@ export class Ingredients extends React.Component {
 
         try {
             const res = await axios.post(BASE_URL, { title: currentMeal, ingr: ingr});
-            const {calories, carbohydrates, fats, proteins, sodium, sugars} = this.state.totals;
+            const {calories, carbohydrates, fats, protein, sodium, sugars} = this.state.totals;
             this.setState(prevState => ({totals: {
                 ...prevState.totals,
                 calories: calories + res.data.calories/20,
                 carbohydrates: carbohydrates + res.data.totalDaily.CHOCDF.quantity.toFixed(2),
                 fats: fats + res.data.totalDaily.FAT.quantity.toFixed(2),
-                proteins: proteins + res.data.totalDaily.PROCNT.quantity.toFixed(2),
+                protein: protein + res.data.totalDaily.PROCNT.quantity.toFixed(2),
                 sodium: sodium + res.data.totalDaily.NA.quantity.toFixed(2),
-                sugars: sugars + (res.data.totalNutrients.SUGAR.quantity/30)*100
+                sugars: sugars + (res.data.totalNutrients.SUGAR.quantity.toFixed(2)/30)*100
             }}));
 
             await this.handleRecipeSearch();
@@ -255,15 +255,14 @@ export class Ingredients extends React.Component {
                         </Modal>
                     </div>
                     }
+                    {
+                        this.state.showSaves && 
+                        <div style={{textAlign: 'center', marginTop: '20px'}}>
+                            <h6>Today's Meals</h6>
+                            <Saves saves={this.state.saves}/>
+                        </div>
+                    }
                 </div>
-                }
-
-                {
-                    this.state.showSaves && 
-                    <div style={{textAlign: 'center', marginTop: '20px'}}>
-                        <h6>Today's Meals</h6>
-                        <Saves saves={this.state.saves}/>
-                    </div>
                 }
 
                 {

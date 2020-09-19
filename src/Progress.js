@@ -16,14 +16,31 @@ export class Progress extends React.Component {
                     'rgba(144,238,144,0.5)',
                     'rgba(128,206,225,0.5)',
                     'rgba(245,189,31,0.5)',
-                ]
+                ],                
             }]
         }
 
         return (
             <div style={{textAlign: 'center', marginTop: '20px'}}>
                 <h3>Total Daily Nutrition</h3>
-                <div><HorizontalBar data={data} options={{legend: {display: false}}} /></div>                
+                <div><HorizontalBar data={data} options={
+                    {
+                        legend: {display: false},
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: '% Daily Value',
+                                },
+                                ticks: {
+                                    min: 0,
+                                    max: 100
+                                }
+                            }],
+                        }                            
+                    }
+                } /></div>                
             </div>
         )
     }
