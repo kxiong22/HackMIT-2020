@@ -85,32 +85,35 @@ export class Visualization extends React.Component {
 
         return (
             <div>
-                <div>{this.props.data.title}</div>
-                <div>Calories: {nutrients.calories}</div>
-                <div>Carbohydrates: {nutrients.totalNutrients.CHOCDF.quantity.toFixed(2)} {nutrients.totalNutrients.CHOCDF.unit}</div>
-                <div>Fats: {nutrients.totalNutrients.FAT.quantity.toFixed(2)} {nutrients.totalNutrients.FAT.unit} </div>
-                <div>Protein: {nutrients.totalNutrients.PROCNT.quantity.toFixed(2)} {nutrients.totalNutrients.PROCNT.unit} </div>
-                <div>Sodium: {nutrients.totalNutrients.NA.quantity.toFixed(2)} {nutrients.totalNutrients.NA.unit} </div>
-                <div>Sugars: {nutrients.totalNutrients.SUGAR.quantity.toFixed(2)} {nutrients.totalNutrients.SUGAR.unit} </div>
+                <h3 style={{textAlign: 'center', marginTop: '20px'}}>Nutrition Summary: {this.props.data.title}</h3>
 
                 <Container>
                     <Row>
-                        <Col>
-                            <Doughnut data={carbohydrateData}/>
+                        <Col style={{textAlign: 'center'}}>
+                            <div>Carbohydrates: {nutrients.totalNutrients.CHOCDF.quantity.toFixed(2)} {nutrients.totalNutrients.CHOCDF.unit}</div>
+                            <Doughnut data={carbohydrateData} options={{legend: {display: false}}}/>
                         </Col>
-                        <Col>
-                            <Doughnut data={fatData}/>
+                        <Col style={{textAlign: 'center'}}>
+                            <div>Fats: {nutrients.totalNutrients.FAT.quantity.toFixed(2)} {nutrients.totalNutrients.FAT.unit}</div>
+                            <Doughnut data={fatData}  options={{legend: {display: false}}}/>
                         </Col>
-                        <Col>
-                            <Doughnut data={proteinData}/>
+                        <Col style={{textAlign: 'center'}}>
+                            <div>Protein: {nutrients.totalNutrients.PROCNT.quantity.toFixed(2)} {nutrients.totalNutrients.PROCNT.unit}</div>
+                            <Doughnut data={proteinData} options={{legend: {display: false}}}/>
                         </Col>
                     </Row>
                     <Row>
-                        <Col>
-                            <Doughnut data={sodiumData}/>
+                        <Col style={{textAlign: 'center'}}>
+                            <div>Sodium: {nutrients.totalNutrients.NA.quantity.toFixed(2)} {nutrients.totalNutrients.NA.unit}</div>
+                            <Doughnut data={sodiumData}  options={{legend: {display: false}}}/>
                         </Col>
-                        <Col>
-                            <Doughnut data={sugarData}/>
+                        <Col style={{textAlign: 'center'}}>
+                            <div>Sugars: {nutrients.totalNutrients.SUGAR.quantity.toFixed(2)} {nutrients.totalNutrients.SUGAR.unit}</div>
+                            <Doughnut data={sugarData}  options={{legend: {display: false}}}/>
+                        </Col>
+                        <Col style={{textAlign: 'center'}}>
+                            <div style={{textAlign: 'center', marginTop: '20px'}}>Calories: {nutrients.calories}</div>
+                            
                         </Col>
                     </Row>
                 </Container>

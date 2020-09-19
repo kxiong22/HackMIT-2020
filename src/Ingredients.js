@@ -183,20 +183,23 @@ export class Ingredients extends React.Component {
                                 <img style={{height: '20px', width: '20px'}} src = "https://img.webmd.com/dtmcms/live//webmd/consumer_assets/site_images/responsive/Cake.svg"/>
                             </div>
                         </div>
-                        <div style={{textAlign: "center"}}>
-                        <DropdownButton variant="info" title={this.state.currentMeal} onSelect={(e) => {this.setState({currentMeal: e})}}>
-                            <Dropdown.Item eventKey="Breakfast">Breakfast</Dropdown.Item>
-                            <Dropdown.Item eventKey="Lunch">Lunch</Dropdown.Item>
-                            <Dropdown.Item eventKey="Dinner">Dinner</Dropdown.Item>
-                            <Dropdown.Item eventKey="Snack">Snack</Dropdown.Item>
-                            <Dropdown.Divider />
-                            <Form>
-                                <Form.Group controlId="other">
-                                    <Form.Control type="meal" placeholder="Other..." />
-                                </Form.Group>
-                            </Form>
-                        </DropdownButton>
-                        <Button style={{margin: '10px'}} variant="outline-info" type="submit" onClick={() => this.setState({showItemsAdder: true})}>Go!</Button>
+
+                        <div style={{marginBottom: "20px"}}>
+                            <Row className="justify-content-md-center">
+                                <DropdownButton variant="info" title={this.state.currentMeal} onSelect={(e) => {this.setState({currentMeal: e})}}>
+                                    <Dropdown.Item eventKey="Breakfast">Breakfast</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Lunch">Lunch</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Dinner">Dinner</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Snack">Snack</Dropdown.Item>
+                                    <Dropdown.Divider />
+                                    <Form onSubmit={(event) => {event.preventDefault(); this.setState({currentMeal: this.refs.othermeal.value})}}>
+                                        <Form.Group>
+                                            <Form.Control type="meal" placeholder="Other..." ref="othermeal"/>
+                                        </Form.Group>
+                                    </Form>
+                                </DropdownButton>
+                                <Button style={{marginLeft: '10px'}} variant="outline-info" type="submit" onClick={() => this.setState({showItemsAdder: true})}>Go!</Button>
+                            </Row>
                         </div>
 
                         { this.state.showItemsAdder && 
@@ -244,7 +247,6 @@ export class Ingredients extends React.Component {
                             centered 
                             show={this.state.showNutrition} 
                             onHide={() => this.setState({showNutrition: false, showItemsAdder: false, showSaves: true})}>
-                            Nutrition Visualization
                             {this.state.saves[this.state.saves.length - 1].visual}
                         </Modal>
                     </div>
