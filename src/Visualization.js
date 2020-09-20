@@ -1,11 +1,12 @@
 import React from 'react';
 import {Accordion, Card, Button, Container, Row, Col} from 'react-bootstrap';
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut, Line} from 'react-chartjs-2';
 
 export class Visualization extends React.Component {    
     render() {
         const {ingredients, instructions, title, image} = this.props.recipe;
-        const {nutrients} = this.props.data;        
+        const {nutrients} = this.props.data;
+        console.log(nutrients);   
 
         let formattedIngreds = [];
         for (let i=0; i<ingredients.length; i++) {
@@ -82,10 +83,56 @@ export class Visualization extends React.Component {
             }]
         }
 
+        let ingreds = "Foods: ";
+        for(let i=0; i<nutrients.ingredients.length-1; i++) {
+            ingreds += nutrients.ingredients[i].text + ", ";
+        }
+        let i=nutrients.ingredients.length-1;
+        ingreds += nutrients.ingredients[i].text;
+
+        let vitaminData = {
+            labels: ['Vitamin A', 'Vitamin B1', 'Vitamin C', 'Vitamin E', 'Vitamin K'],
+                datasets: [{
+                    data: [nutrients.totalNutrients.VITA_RAE.quantity.toFixed(2),nutrients.totalNutrients.THIA.quantity.toFixed(2),nutrients.totalNutrients.VITC.quantity.toFixed(2),nutrients.totalNutrients.TOCPHA.quantity.toFixed(2),nutrients.totalNutrients.VITK1.quantity.toFixed(2)],
+                    label: 'Actual Amount',
+                    borderColor: [
+                        'rgba(255,36,0,1)',
+                    ],
+                    backgroundColor: [
+                        'rgba(0,0,0,0)',
+                    ],
+                    pointBackgroundColor: [
+                        'rgba(255,36,0,1)','rgba(255,36,0,1)','rgba(255,36,0,1)','rgba(255,36,0,1)','rgba(255,36,0,1)',
+                    ],
+                    pointBorderColor: [
+                        'rgba(255,36,0,1)','rgba(255,36,0,1)','rgba(255,36,0,1)','rgba(255,36,0,1)','rgba(255,36,0,1)',
+                    ],
+                    pointRadius: 5
+                },
+                {
+                    data: [.8, 1, 80, 15, .13],
+                    label: 'Recommended Amount',
+                    borderColor: [
+                        'rgba(0,183,235)',
+                    ],
+                    backgroundColor: [
+                        'rgba(0,0,0,0)',
+                    ],
+                    pointBackgroundColor: [
+                        'rgba(0,183,235)','rgba(0,183,235)','rgba(0,183,235)','rgba(0,183,235)','rgba(0,183,235)',
+                    ],
+                    pointBorderColor: [
+                        'rgba(0,183,235)','rgba(0,183,235)','rgba(0,183,235)','rgba(0,183,235)','rgba(0,183,235)',
+                    ],
+                    pointRadius: 5
+                }]
+        }
+
+
         return (
             <div>
                 <h3 style={{textAlign: 'center', marginTop: '20px'}}>Nutrition Summary: {this.props.data.title}</h3>
-
+                <div style={{textAlign: 'center', marginBottom: '20px',fontSize: '18px'}}>{ingreds}</div>
                 <Container>
                     <Row>
                         <Col style={{textAlign: 'center'}}>
@@ -115,6 +162,23 @@ export class Visualization extends React.Component {
                             <div>Sugars: {nutrients.totalNutrients.SUGAR.quantity.toFixed(2)} {nutrients.totalNutrients.SUGAR.unit}</div>
                             <Doughnut data={sugarData}  options={{legend: {display: false}}}/>
                         </Col>
+                    </Row>
+                    <div style={{textAlign: 'center',marginTop: '20px',fontSize: '18px'}}>Vitamin Content</div>
+                    <Row>
+                        <Line data={vitaminData} options={
+                        {
+                            scales: {
+                                yAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Amount (milligrams)',
+                                    },
+                                }],
+                            }                            
+                        }
+                        }
+                        />
                     </Row>
                 </Container>
 
