@@ -8,13 +8,14 @@ class App extends React.Component {
     state = {
         showHome: true,
         showProgress: false,
-        meanName: "Meal",
+        showFarms: false,
     }
     
     changeVisibility = (component) => {
         this.setState({
             showHome: false,
             showProgress: false,
+            showFarms: false,
             [component]: true
         })
     }
@@ -30,11 +31,12 @@ class App extends React.Component {
                         <Nav className="mr-auto">
                             <Nav.Link onClick={() => this.changeVisibility('showHome')}>Home</Nav.Link>
                             <Nav.Link onClick={() => this.changeVisibility('showProgress')}>Daily Progress</Nav.Link>
+                            <Nav.Link onClick={() => this.changeVisibility('showFarms')}>Local Businesses</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
 
-                <Ingredients showHome = {this.state.showHome} showProgress = {this.state.showProgress} />
+                <Ingredients showHome = {this.state.showHome} showProgress = {this.state.showProgress} showFarms = {this.state.showFarms}/>
             </div>
         )
     }

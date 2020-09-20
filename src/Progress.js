@@ -4,11 +4,10 @@ import { HorizontalBar } from 'react-chartjs-2';
 export class Progress extends React.Component {    
     render() {
         const { calories, carbohydrates, fats, protein, sodium, sugars } = this.props.totals;      
-        
         const data = {
             labels: ['Calories', 'Carbohydrates', 'Fats', 'Protein', 'Sodium', 'Sugars'],
             datasets: [{
-                data: [calories, carbohydrates, fats, protein, sodium, sugars],
+                data: [calories, carbohydrates.toFixed(2), fats.toFixed(2), protein.toFixed(2), sodium.toFixed(2), sugars.toFixed(2)],
                 backgroundColor: [
                     'rgba(234,60,83,0.5)',
                     'rgba(150, 111, 214, 0.5)',
