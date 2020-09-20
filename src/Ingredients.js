@@ -56,8 +56,11 @@ export class Ingredients extends React.Component {
 
     handleDeleteItem = (i) => {
         let itemsCopy = [...this.state.items];
+        let amountsCopy = [...this.state.amounts];
         itemsCopy.splice(i, 1);
+        amountsCopy.splice(i, 1);
         this.setState({items: itemsCopy});
+        this.setState({amounts: amountsCopy});
     }
 
     renderItem = (i) => {
@@ -97,7 +100,7 @@ export class Ingredients extends React.Component {
                 fats: fats + res.data.totalDaily.FAT.quantity.toFixed(2),
                 protein: protein + res.data.totalDaily.PROCNT.quantity.toFixed(2),
                 sodium: sodium + res.data.totalDaily.NA.quantity.toFixed(2),
-                sugars: sugars + (res.data.totalNutrients.SUGAR.quantity.toFixed(2)/30)*100
+                sugars: sugars + (res.data.totalNutrients.SUGAR.quantity/30).toFixed(2)*100
             }}));
 
             await this.handleRecipeSearch();
