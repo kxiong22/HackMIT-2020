@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button} from 'react-bootstrap';
+import {Form} from 'react-bootstrap';
 import './index.css';
 import axios from 'axios';
 import {Map, GoogleApiWrapper, Marker, InfoWindow} from 'google-maps-react';
@@ -14,6 +14,7 @@ export class Farms extends React.Component {
             showingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
+            showZipCode: false
         };
     }
 
@@ -34,8 +35,8 @@ export class Farms extends React.Component {
         }
     }
 
-    handleFarmSearch = async () => {
-        const BASE_URL = 'http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=02139';
+    handleFarmSearch = async (zipcode) => {
+        const BASE_URL = 'http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=' + zipcode; 
 
         try {
             const res = await axios.get(BASE_URL);
@@ -62,8 +63,8 @@ export class Farms extends React.Component {
         }
     }
 
-    async componentDidMount() {
-        let marketdetails = await this.handleFarmSearch();
+    getLocations = async (zipcode) => {
+        let marketdetails = await this.handleFarmSearch(zipcode);
         let markers = [];
         for (let farm of marketdetails) {
             let indLon = farm.GoogleLink.indexOf("%2C%20");
@@ -88,9 +89,23 @@ export class Farms extends React.Component {
         this.setState({markers: markers});
     }
 
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.getLocations(this.refs.zipcode.value);
+        this.setState({showZipCode: true});
+    }
+
     render() {
         return (   
             <div style={{textAlign: 'center', marginTop: '40px'}}>
+                <div style={{width: '50%', margin: '0 auto'}}>
+                    <Form onSubmit={(event) => this.handleSubmit(event)}>
+                        <Form.Group>
+                            <Form.Control type="text" placeholder="Enter Zip Code..." ref="zipcode"/>
+                        </Form.Group>
+                    </Form>
+                </div>
+                {this.state.showZipCode &&
                 <Map 
                     google={this.props.google}
                     onClick={this.onMapClicked}
@@ -106,6 +121,7 @@ export class Farms extends React.Component {
                         <div><h6>{this.state.selectedPlace.name}</h6></div>
                 </InfoWindow>
                 </Map>
+                }
             </div>             
         )
     }
