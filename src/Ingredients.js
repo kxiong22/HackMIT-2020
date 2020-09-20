@@ -206,7 +206,7 @@ export class Ingredients extends React.Component {
                                         </Form.Group>
                                     </Form>
                                 </DropdownButton>
-                                <Button style={{marginLeft: '10px'}} variant="outline-info" type="submit" onClick={() => this.setState({showItemsAdder: true})}>Go!</Button>
+                                <Button style={{marginLeft: '10px'}} variant="outline-info" type="submit" onClick={() => this.setState({showItemsAdder: true, showSaves: false})}>Go!</Button>
                             </Row>
                         </div>
 

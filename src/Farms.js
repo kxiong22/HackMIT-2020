@@ -57,7 +57,6 @@ export class Farms extends React.Component {
         try {
             const res = await axios.get(BASE_URL);
             return res.data.marketdetails;
-            // this.setState({farms: this.state.farms.concat(res.data.marketdetails)});
         } catch (e) {
             console.error(e);
         }
