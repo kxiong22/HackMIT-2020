@@ -11,7 +11,7 @@ import Farms from './Farms.js';
 
 const EDAMAM_APP_ID = 'b920c5d8';
 const EDAMAM_API_KEY = '8364899ccd14a7bd16f1302137461490';
-const SPOON_API_KEY = 'b017b902012d497795bcd109af7486ea';
+const SPOON_API_KEY = '4dd5fc91ecc44a368b8d6f91494aaeef';
 
 export class Ingredients extends React.Component {
     constructor(props) {
