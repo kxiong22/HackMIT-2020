@@ -6,7 +6,6 @@ export class Visualization extends React.Component {
     render() {
         const {ingredients, instructions, title, image} = this.props.recipe;
         const {nutrients} = this.props.data;
-        console.log(nutrients);   
 
         let formattedIngreds = [];
         for (let i=0; i<ingredients.length; i++) {
